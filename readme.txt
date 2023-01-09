@@ -1,1 +1,1 @@
-Tom inventeur de Karthus mage de combat est pipi low.
+Tom inventeur de Karthus mage de combat est turbo strong.
