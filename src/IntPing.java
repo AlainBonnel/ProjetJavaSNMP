@@ -1,4 +1,5 @@
+import java.rmi.RemoteException;
 
-public class IntPing {
-
-}
+public interface IntPing {
+		public void notifier() throws RemoteException;
+		}
