@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Agent extends UnicastRemoteObject implements AgentRMI{
+public class Agent extends UnicastRemoteObject implements AgentRMI,Serializable{
 
     private String nom;
 
