@@ -13,32 +13,19 @@ public class Agent extends UnicastRemoteObject implements AgentRMI{
         this.adresse = a;
     }
 
-    public String getNom() {
+    public String getNom() throws RemoteException{
         return this.nom;
     }
 
-    public void setNom(String nom) {
+    public void setNom(String nom) throws RemoteException{
         this.nom = nom;
     }
 
-    public String getAdresse() {
+    public String getAdresse() throws RemoteException{
         return this.adresse;
     }
 
-    public void setAdresse(String adresse) {
+    public void setAdresse(String adresse)throws RemoteException {
         this.adresse = adresse;
     }
-
-	@Override
-	public void setAdresse() throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setNom() throws RemoteException {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
