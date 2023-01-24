@@ -1,6 +1,6 @@
 import java.rmi.RemoteException;
 
-public interface AgentRMI 
+public interface AgentRMI extends java.rmi.Remote
 	{
 		public void setAdresse(String adresse) throws RemoteException;
 		public void setNom(String nom) throws RemoteException;
