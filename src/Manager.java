@@ -1,10 +1,12 @@
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.Scanner;
 
-public class Manager {
-	private String nom;
+public class Manager implements Runnable {
+    private String nom;
     private String adresse;
+
     public Manager(String n, String a) throws RemoteException {
         this.nom = n;
         this.adresse = a;
@@ -25,6 +27,7 @@ public class Manager {
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
+<<<<<<< HEAD
     
     public static void main(String args[]) {
     	try {
@@ -48,4 +51,31 @@ public class Manager {
 	public void unreferenced() {
 	 // utilisé pour libérer des ressources (threads, fichiers…)
 	 }
+=======
+
+    public void unreferenced() {
+        // utilisï¿½ pour libï¿½rer des ressources (threads, fichiersï¿½)
+    }
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        try {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Selectionner un agent(taper FIN pour quitter) : ");
+            String chaine = "";
+            while (!chaine.equalsIgnoreCase("FIN")) {
+                // lecture clavier
+                chaine = scanner.nextLine();
+                // Recuperation d'un proxy sur l'objet
+                Agent c = (Agent) Naming.lookup(chaine);
+                // Appel d'une methode sur l'objet distant
+                String message = c.getNom();
+                System.out.println(message);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+>>>>>>> 03a69b0 (modif manager en thread v1)
 }
