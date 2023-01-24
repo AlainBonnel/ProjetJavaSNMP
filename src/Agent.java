@@ -1,32 +1,11 @@
-import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
-public class Agent extends UnicastRemoteObject implements AgentRMI,Serializable{
+public interface Agent extends java.rmi.Remote {
+	public void setAdresse(String adresse) throws RemoteException;
 
-    private String nom;
+	public void setNom(String nom) throws RemoteException;
 
-    private String adresse;
+	public String getAdresse() throws RemoteException;
 
-    public Agent(String n, String a)throws RemoteException{
-    	super();
-        this.nom = n;
-        this.adresse = a;
-    }
-
-    public String getNom() throws RemoteException{
-        return this.nom;
-    }
-
-    public void setNom(String nom) throws RemoteException{
-        this.nom = nom;
-    }
-
-    public String getAdresse() throws RemoteException{
-        return this.adresse;
-    }
-
-    public void setAdresse(String adresse)throws RemoteException {
-        this.adresse = adresse;
-    }
+	public String getNom() throws RemoteException;
 }

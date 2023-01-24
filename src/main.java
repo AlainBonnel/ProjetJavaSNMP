@@ -4,14 +4,14 @@ import java.rmi.registry.LocateRegistry;
 
 public class main {
 
-	public static void main(String args[]) throws Exception,MalformedURLException {
-		// Démarre le rmiregistry
+	public static void main(String args[]) throws Exception, MalformedURLException {
+		// Dï¿½marre le rmiregistry
 		LocateRegistry.createRegistry(1099);
-		// Crée et installe un gestionnaire de sécurité
-		 // inutile si on ne télécharge pas les classes des stubs et parametres
+		// Crï¿½e et installe un gestionnaire de sï¿½curitï¿½
+		// inutile si on ne tï¿½lï¿½charge pas les classes des stubs et parametres
 		// System.setSecurityManager(new RMISecurityManager());
-		Agent a = new Agent("AgentA", "192.168.10.1");
+		AgentImp a = new AgentImp("AgentA", "192.168.10.1");
 		Naming.rebind("A", a);
-		System.out.println("A déclaré auprès du serveur de noms");
-		 }
-		}
+		System.out.println("A dï¿½clarï¿½ auprï¿½s du serveur de noms");
+	}
+}
