@@ -30,9 +30,15 @@ public class Manager {
     	try {
     	
     	 // Récupération d'un proxy sur l'objet
-    	 Agent c = (Agent) Naming.lookup("A");
+    	 Agent c1 = (Agent) Naming.lookup("Agent1");
+    	 Agent c2 = (Agent) Naming.lookup("Agent2");
+    	 Agent c3 = (Agent) Naming.lookup("Agent3");
     	 // Appel d'une méthode sur l'objet distant
-    	 String message = c.getNom();
+    	 String message = c1.getNom();
+    	 System.out.println(message);
+    	 message = c2.getNom();
+    	 System.out.println(message);
+    	 message = c3.getNom();
     	 System.out.println(message);
     	} catch (Exception e) {
     	 e.printStackTrace();

@@ -46,8 +46,7 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 		// inutile si on ne t�l�charge pas les classes des stubs et parametres
 		// System.setSecurityManager(new RMISecurityManager());
 		try {
-			AgentImp a = new AgentImp("AgentA", "192.168.10.1");
-			Naming.rebind("A", a);
+			Naming.rebind(this.nom, this);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
