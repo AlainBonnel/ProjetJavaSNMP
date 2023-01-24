@@ -27,31 +27,6 @@ public class Manager implements Runnable {
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
-<<<<<<< HEAD
-    
-    public static void main(String args[]) {
-    	try {
-    	
-    	 // Récupération d'un proxy sur l'objet
-    	 Agent c1 = (Agent) Naming.lookup("Agent1");
-    	 Agent c2 = (Agent) Naming.lookup("Agent2");
-    	 Agent c3 = (Agent) Naming.lookup("Agent3");
-    	 // Appel d'une méthode sur l'objet distant
-    	 String message = c1.getNom();
-    	 System.out.println(message);
-    	 message = c2.getNom();
-    	 System.out.println(message);
-    	 message = c3.getNom();
-    	 System.out.println(message);
-    	} catch (Exception e) {
-    	 e.printStackTrace();
-    	}
-    	}  
-
-	public void unreferenced() {
-	 // utilisé pour libérer des ressources (threads, fichiers…)
-	 }
-=======
 
     public void unreferenced() {
         // utilisï¿½ pour libï¿½rer des ressources (threads, fichiersï¿½)
@@ -70,12 +45,11 @@ public class Manager implements Runnable {
                 // Recuperation d'un proxy sur l'objet
                 Agent c = (Agent) Naming.lookup(chaine);
                 // Appel d'une methode sur l'objet distant
-                String message = c.getNom();
+                String message = c.getAdresse();
                 System.out.println(message);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
->>>>>>> 03a69b0 (modif manager en thread v1)
 }
