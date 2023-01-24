@@ -42,7 +42,7 @@ public class Manager {
     public static void main(String args[]) {
     	try {
     	 // Récupération d'un proxy sur l'objet
-    	 Agent c = (Agent)Naming.lookup("A");
+    	 AgentRMI c = (AgentRMI) Naming.lookup("A");
     	 // Appel d'une méthode sur l'objet distant
     	 String message = c.getNom();
     	 System.out.println(message);
