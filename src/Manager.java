@@ -1,6 +1,5 @@
 import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Manager implements Runnable {
@@ -29,7 +28,7 @@ public class Manager implements Runnable {
     }
 
     public void unreferenced() {
-        // utilis� pour lib�rer des ressources (threads, fichiers�)
+        // utilise pour liberer des ressources (threads, fichiers)
     }
 
     @Override
