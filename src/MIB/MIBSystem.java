@@ -1,16 +1,15 @@
 package MIB;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.ParseException;
-
+import java.io.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 public class MIBSystem {
    public static void main(String args[]) {
       JSONParser jsonP = new JSONParser();
       try {
-         JSONObject jsonO = (JSONObject)jsonP.parse(new FileReader("C:/person.json"));
+         
+		 JSONObject jsonO = (JSONObject)(new FileReader("C:/person.json"));
      
          String name = (String) jsonO.get("name");
          String age = (String) jsonO.get("age");
