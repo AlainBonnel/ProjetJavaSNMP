@@ -31,24 +31,49 @@ public class Manager implements Runnable {
         // utilise pour liberer des ressources (threads, fichiers)
     }
 
+    public String recuperationInfo(String chaine, Agent a) {
+        String message = "";
+        try {
+            if (chaine.equalsIgnoreCase("nom")) {
+                // Appel d'une methode sur l'objet distant
+                message = a.getNom();
+            } else if (chaine.equalsIgnoreCase("adresse")) {
+                // Appel d'une methode sur l'objet distant
+                message = a.getAdresse();
+            } else {
+                message = "Choix non valide";
+            }
+
+        } catch (Exception e) {
+            message = "Erreur : " + e.getMessage();
+        }
+        return message;
+    }
+
     @Override
     public void run() {
-        // TODO Auto-generated method stub
         try {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Selectionner un agent(taper FIN pour quitter) : ");
+            System.out.println("Selectionner un agent (type FIN to quit): ");
             String chaine = "";
+            Agent agent = null;
+            chaine = scanner.nextLine();
+            agent = (Agent) Naming.lookup(chaine);
             while (!chaine.equalsIgnoreCase("FIN")) {
-                // lecture clavier
+                if (chaine.equalsIgnoreCase("O")) {
+                    System.out.println("Selectionner un agent : ");
+                    chaine = scanner.nextLine();
+                    agent = (Agent) Naming.lookup(chaine);
+                }
+                System.out.println("Choisir l'information que à laquelle vous voulez accéder (nom or adresse): ");
                 chaine = scanner.nextLine();
-                // Recuperation d'un proxy sur l'objet
-                Agent c = (Agent) Naming.lookup(chaine);
-                // Appel d'une methode sur l'objet distant
-                String message = c.getAdresse();
-                System.out.println(message);
+                System.out.println(recuperationInfo(chaine, agent));
+                System.out.println("Changer d'agent ? O/N (type FIN to quit): ");
+                chaine = scanner.nextLine();
+                System.out.println(chaine + " c'est ici le print");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Erreur : " + e.getMessage());
         }
     }
 }
