@@ -69,28 +69,35 @@ public class Manager implements Runnable {
         try {
             Scanner scanner = new Scanner(System.in);
             recuperationNomAgent();
-            System.out.println("Selectionner un agent (type FIN to quit): ");
             String chaine = "";
             Agent agent = null;
-            chaine = scanner.nextLine();
-            agent = (Agent) Naming.lookup(chaine);
-            while (!chaine.equalsIgnoreCase("FIN")) {
+            do {
+                System.out.println("Voulez vous affichez la liste des agents ? O/N");
+                chaine = scanner.nextLine();
                 if (chaine.equalsIgnoreCase("O")) {
-                    System.out.println("Selectionner un agent : ");
-                    chaine = scanner.nextLine();
-                    agent = (Agent) Naming.lookup(chaine);
+                    recuperationNomAgent();
                 }
-                System.out.println("Choisir l'information que à laquelle vous voulez accéder (nom or adresse): ");
+                System.out.println("Selectionner un agent (taper FIN pour quitter): ");
                 chaine = scanner.nextLine();
-                System.out.println(recuperationInfo(chaine, agent));
-                System.out.println("Changer d'agent ? O/N (type FIN to quit): ");
-                chaine = scanner.nextLine();
-            }
+                if (!chaine.equalsIgnoreCase("FIN")) {
+                    agent = (Agent) Naming.lookup(chaine);
+                    do {
+                        System.out
+                                .println("Choisir l'information que à laquelle vous voulez accéder (nom or adresse): ");
+                        chaine = scanner.nextLine();
+                        System.out.println(recuperationInfo(chaine, agent));
+                        System.out.println("Changer d'agent ? O/N (taper FIN pour quitter): ");
+                        chaine = scanner.nextLine();
+                    } while (chaine.equalsIgnoreCase("N"));
+                }
+            } while (!chaine.equalsIgnoreCase("FIN"));
+            scanner.close();
         } catch (
 
         Exception e) {
             System.out.println("Erreur : " + e.getMessage());
         }
+
     }
 
     public static void main(String args[]) throws RemoteException, MalformedURLException {
