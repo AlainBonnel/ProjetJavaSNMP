@@ -1,0 +1,6 @@
+MIB PROJECT SNMP
+SysDecr , ac
+SysName
+SysUptime
+Tableau compte manager [login,mdp,adresse,level,abonnement[OID]]
+Tableau interfaces [ifDescr, ifType, ifMTU,ifPhysAddress,state,error]

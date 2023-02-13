@@ -6,11 +6,9 @@ import org.json.simple.parser.ParseException;
 
 public class MIBSystem {
    public static void main(String args[]) {
-      JSONParser jsonP = new JSONParser();
-      try {
-         
-		 JSONObject jsonO = (JSONObject)(new FileReader("C:/person.json"));
-     
+	   JSONParser jsonP = new JSONParser();
+	      try {
+	         JSONObject jsonO = (JSONObject)jsonP.parse(new FileReader("C:/person.json"));
          String name = (String) jsonO.get("name");
          String age = (String) jsonO.get("age");
          String address = (String) jsonO.get("address");
