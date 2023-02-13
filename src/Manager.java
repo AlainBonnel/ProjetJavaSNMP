@@ -1,10 +1,14 @@
+import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.Scanner;
-import java.net.MalformedURLException;
 
 public class Manager implements Runnable {
+
     private String nom;
+
+    private String mdp;
+
     private String adresse;
 
     public Manager(String n, String a) throws RemoteException {
@@ -28,8 +32,12 @@ public class Manager implements Runnable {
         this.adresse = adresse;
     }
 
-    public void unreferenced() {
-        // utilise pour liberer des ressources (threads, fichiers)
+    public String getMdp() {
+        return mdp;
+    }
+
+    public void setMdp(String mdp) {
+        this.mdp = mdp;
     }
 
     public void recuperationNomAgent() {
