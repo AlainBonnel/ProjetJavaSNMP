@@ -68,7 +68,7 @@ public class Manager implements Runnable {
     public void run() {
         try {
             Scanner scanner = new Scanner(System.in);
-            recuperationAgent();
+            recuperationNomAgent();
             System.out.println("Selectionner un agent (type FIN to quit): ");
             String chaine = "";
             Agent agent = null;
