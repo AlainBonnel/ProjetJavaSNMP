@@ -32,6 +32,19 @@ public class Manager implements Runnable {
         // utilise pour liberer des ressources (threads, fichiers)
     }
 
+    public void recuperationNomAgent() {
+        try {
+            String[] names = Naming.list("rmi://localhost/");
+            for (String name : names) {
+                Agent snmpService = (Agent) Naming.lookup(name);
+                System.out.println("Found SNMP agent: " + snmpService.getNom());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public String recuperationInfo(String chaine, Agent a) {
         String message = "";
         try {
@@ -55,6 +68,7 @@ public class Manager implements Runnable {
     public void run() {
         try {
             Scanner scanner = new Scanner(System.in);
+            recuperationAgent();
             System.out.println("Selectionner un agent (type FIN to quit): ");
             String chaine = "";
             Agent agent = null;
@@ -72,7 +86,9 @@ public class Manager implements Runnable {
                 System.out.println("Changer d'agent ? O/N (type FIN to quit): ");
                 chaine = scanner.nextLine();
             }
-        } catch (Exception e) {
+        } catch (
+
+        Exception e) {
             System.out.println("Erreur : " + e.getMessage());
         }
     }
