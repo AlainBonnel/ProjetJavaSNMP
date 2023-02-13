@@ -1,6 +1,7 @@
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.Scanner;
+import java.net.MalformedURLException;
 
 public class Manager implements Runnable {
     private String nom;
@@ -70,10 +71,17 @@ public class Manager implements Runnable {
                 System.out.println(recuperationInfo(chaine, agent));
                 System.out.println("Changer d'agent ? O/N (type FIN to quit): ");
                 chaine = scanner.nextLine();
-                System.out.println(chaine + " c'est ici le print");
             }
         } catch (Exception e) {
             System.out.println("Erreur : " + e.getMessage());
         }
+    }
+
+    public static void main(String args[]) throws RemoteException, MalformedURLException {
+        Manager m1 = new Manager("Manager1", "192.168.12.11");
+
+        Thread t = new Thread(m1);
+
+        t.start();
     }
 }

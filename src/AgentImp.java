@@ -55,4 +55,18 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 		System.out.println("A d�clar� aupr�s du serveur de noms");
 	}
 
+	public static void main(String args[]) throws RemoteException, MalformedURLException {
+		AgentImp a1 = new AgentImp("Agent1", "192.168.12.51");
+		AgentImp a2 = new AgentImp("Agent2", "192.168.12.52");
+		AgentImp a3 = new AgentImp("Agent3", "192.168.12.53");
+
+		Thread t1 = new Thread(a1);
+		Thread t2 = new Thread(a2);
+		Thread t3 = new Thread(a3);
+
+		t1.start();
+		t2.start();
+		t3.start();
+	}
+
 }
