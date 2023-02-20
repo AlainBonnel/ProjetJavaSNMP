@@ -2,8 +2,14 @@ MIB PROJECT SNMP
 SysDecr,Description d'un agent
 SysName,Agent1
 SysUptime,100000
-Manager1,Tom-mdp01-172.168.0.1-SysName/SysUptime
-Manager2,Alain-mdp02-172.168.0.0.2-Interface1Etat
+Manager1Name,Tom
+Manager1MDP,mdp01
+Manager1Addr,172.168.0.1
+Manager1Abo,SysName/SysUptime
+Manager2Name,Alain
+Manager2MDP,mdp02
+Manager2Addr,172.168.0.0.2
+Manager2Abo,Interface1Etat
 Interface1Desc,Interface1
 Interface1Etat,Up
 Interface1Type,Eth
