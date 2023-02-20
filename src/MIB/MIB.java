@@ -6,10 +6,6 @@ import java.util.*;
 public class MIB {
 	private String Chemin;
 	private HashMap Hashmap;
-	private String[] descr;
-	private String[] name;
-	private String[] adresse;
-	private String[] uptime;
 	
 	
 	MIB(String chemin) throws IOException{
@@ -20,13 +16,17 @@ public class MIB {
 			String line = reader.readLine();
 		    System.out.println(line);
 		    if (line == "MIB PROJECT SNMP"){
+		    	while(line != null) {
 		    	line = reader.readLine();
 		    	String[] tab = line.split(",");
-		    	name[0] = tab[0];
-		    	name[1] = tab[1];
-		    	String oid = tab[2];
-		    	Hashmap.put(oid,tab);
+		    	if(tab[0] != "[]") {
+		    		//traitement tableau
+		    	}
+		    	else {
+		    	Hashmap.put(tab[0],tab[1]);
+		    	}}
 		    	
+
 		            
 		      }} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
