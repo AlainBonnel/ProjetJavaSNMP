@@ -8,41 +8,18 @@ import java.util.ArrayList;
 
 import javax.management.Notification;
 
+import MIB.MIB;
+
 public class AgentImp extends UnicastRemoteObject implements Agent, Serializable, Runnable {
 
-	private String nom;
-
-	private String adresse;
+	private MIB mib;
 
 	private Trap trap;
 
-	public AgentImp(String n, String a) throws RemoteException {
+	public AgentImp(MIB mib) throws RemoteException {
 		super();
-		this.nom = n;
-		this.adresse = a;
+		this.mib = mib;
 	}
-
-	@Override
-	public String getNom() throws RemoteException {
-		return this.nom;
-	}
-
-	@Override
-	public void setNom(String nom) throws RemoteException {
-		this.nom = nom;
-	}
-
-	@Override
-	public String getAdresse() throws RemoteException {
-		return this.adresse;
-	}
-
-	@Override
-	public void setAdresse(String adresse) throws RemoteException {
-		this.adresse = adresse;
-	}
-
-	
 
 	@Override
 	public void ajouterTrap(Trap trap) throws RemoteException {
