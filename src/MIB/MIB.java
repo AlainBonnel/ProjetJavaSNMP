@@ -18,16 +18,9 @@ public class MIB {
 		    if (line == "MIB PROJECT SNMP"){
 		    	while(line != null) {
 		    	line = reader.readLine();
-		    	String[] tab = line.split(",");
-		    	if(tab[0] != "[]") {
-		    		//traitement tableau
-		    	}
-		    	else {
+		    	String[] tab = line.split(",");	
 		    	Hashmap.put(tab[0],tab[1]);
-		    	}}
-		    	
-
-		            
+		    	}        
 		      }} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

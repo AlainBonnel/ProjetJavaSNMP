@@ -1,6 +1,18 @@
 MIB PROJECT SNMP
-SysDecr , ac
-SysName
-SysUptime
-Tableau compte manager [login,mdp,adresse,level,abonnement[OID]]
-Tableau interfaces [ifDescr, ifType, ifMTU,ifPhysAddress,state,error]
+SysDecr,Description d'un agent
+SysName,Agent1
+SysUptime,100000
+Manager1,Tom-mdp01-172.168.0.1-SysName/SysUptime
+Manager2,Alain-mdp02-12.168.0.0.2-Interface1Etat
+Interface1Desc
+Interface1Etat
+Interface1Type
+Interface1MTU
+Interface1Addr
+Interface1Error
+Interface2Desc
+Interface2Etat
+Interface2Type
+Interface2MTU
+Interface2Addr
+Interface2Error
