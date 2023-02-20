@@ -8,4 +8,6 @@ public interface Agent extends java.rmi.Remote {
 	public String getAdresse() throws RemoteException;
 
 	public String getNom() throws RemoteException;
+
+	public void ajouterTrap(Trap trap) throws RemoteException;
 }

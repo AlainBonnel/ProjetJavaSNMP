@@ -6,11 +6,15 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import javax.management.Notification;
+
 public class AgentImp extends UnicastRemoteObject implements Agent, Serializable, Runnable {
 
 	private String nom;
 
 	private String adresse;
+
+	private Trap trap;
 
 	public AgentImp(String n, String a) throws RemoteException {
 		super();
@@ -18,20 +22,31 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 		this.adresse = a;
 	}
 
+	@Override
 	public String getNom() throws RemoteException {
 		return this.nom;
 	}
 
+	@Override
 	public void setNom(String nom) throws RemoteException {
 		this.nom = nom;
 	}
 
+	@Override
 	public String getAdresse() throws RemoteException {
 		return this.adresse;
 	}
 
+	@Override
 	public void setAdresse(String adresse) throws RemoteException {
 		this.adresse = adresse;
+	}
+
+	
+
+	@Override
+	public void ajouterTrap(Trap trap) throws RemoteException {
+
 	}
 
 	@Override
