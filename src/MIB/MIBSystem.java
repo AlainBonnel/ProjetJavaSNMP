@@ -41,9 +41,48 @@ public class MIBSystem {
    }
    
    public String OidToString(String g){
-	   String r = "";
-	   
-	   return r;
-	   
+	   Object r = "";
+	   r = Hashmap.get(g);
+	   return r.toString();
    }
+   public String getnextOid(String g) {
+	   String a[] = g.split(".");
+	   String r ="";
+	   for(Object b : Hashmap.keySet()) {
+		   String d = b.toString();
+		   String[] c = d.split(".");
+		   int f = Integer.parseInt(c[1]);
+		   int e = Integer.parseInt(a[1]); 
+		   if (f > e) {
+			   r = d;
+		   }
+		   else if(f == e) {
+			   
+			   int h = Integer.parseInt(c[2]);
+			   int i = Integer.parseInt(a[2]);
+			   if (h > i){
+				   r = d;
+			   }
+			   else if(h == i) {
+				   int j = Integer.parseInt(c[3]);
+				   int k = Integer.parseInt(a[3]);
+				   if (j > k) {
+					   r = d;
+				   }
+			   }
+		   }
+		   
+	   }
+	   return r;
+   }
+   public String StringtoOid(String g){
+	   String r ="";
+	   for (Object b : Hashmap.keySet()) {
+		   if (g == Hashmap.get(b)) {
+			   r = b.toString();
+		   }
+	   }
+	   return r;
+   }
+   
 }
