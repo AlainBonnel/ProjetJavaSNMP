@@ -6,10 +6,12 @@ Manager1Name,Tom
 Manager1MDP,mdp01
 Manager1Addr,172.168.0.1
 Manager1Abo,SysName/SysUptime
+Manager1Access,W
 Manager2Name,Alain
 Manager2MDP,mdp02
 Manager2Addr,172.168.0.0.2
 Manager2Abo,Interface1Etat
+Manager2Acces,RW
 Interface1Desc,Interface1
 Interface1Etat,Up
 Interface1Type,Eth

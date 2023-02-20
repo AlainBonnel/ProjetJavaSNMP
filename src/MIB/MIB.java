@@ -8,7 +8,7 @@ public class MIB {
 	private HashMap Hashmap;
 	
 	
-	MIB(String chemin) throws IOException{
+	public MIB(String chemin) throws IOException{
 		Chemin = chemin;
 		try {
 			FileReader fileReader = new FileReader(Chemin);
