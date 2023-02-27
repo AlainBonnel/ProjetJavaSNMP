@@ -40,10 +40,10 @@ public class MIBSystem {
 	   list.add("Interface2Error");
    }
    
-   public String getNext(String i) {
+   public String getNext(String i) { //retourne le paramètre suivant i   
 	   String r ="null";
 	   if(list.contains(i)) {
-		   for(int a=0;a<list.size()-1;a++) {
+		   for(int a=0;a<list.size()-1;a++) { // -1 car le dernier élément d'une chaine ne peut avoir de suivant
 			   if(list.get(a) == i) {
 				   r = list.get(a+1).toString();
 			   }
@@ -52,7 +52,7 @@ public class MIBSystem {
 	   return r;
    }
    
-   public static void main (String[] args){
+   public static void main (String[] args){ //tests de fonctionalité 
 	   MIBSystem c = new MIBSystem();
 	   c.init();
 	   System.out.print(c.getNext("Manager2Abo"));
