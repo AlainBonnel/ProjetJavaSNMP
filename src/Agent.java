@@ -1,13 +1,10 @@
 import java.rmi.RemoteException;
 
 public interface Agent extends java.rmi.Remote {
-	public void setAdresse(String adresse) throws RemoteException;
+	public void set(String value, String commu) throws RemoteException;
 
-	public void setNom(String nom) throws RemoteException;
+	public String get(String value, String commu) throws RemoteException;
 
-	public String getAdresse() throws RemoteException;
+	public String getNext(String key, String commu) throws RemoteException;
 
-	public String getNom() throws RemoteException;
-
-	public void ajouterTrap(Trap trap) throws RemoteException;
 }
