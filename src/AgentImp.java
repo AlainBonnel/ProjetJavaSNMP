@@ -24,40 +24,59 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 	}
 
 	@Override
-	public void set(String value, String commu) throws RemoteException {
-		System.out.println("uiset");
+	public String set(String value, String modif, String commu) throws RemoteException {
+		Set<? extends Map.Entry<String, Information>> entries = this.mib.getHashmap().entrySet();
+		// on cherche dans la hashmap si l'élément est présent
+		for (Map.Entry<String, Information> entry : entries) {
+			if (entry.getValue().getNom().equalsIgnoreCase(value)) {
+				// si l'élément est présent on vérifie que l'utilisateur à choisi une communauté
+				// ayant les droits d'écriture
+				if (entry.getValue().getDroit()[1].equals(commu)) {
+					entry.getValue().setValeur(modif);
+					return "Modification effectuée";
+				} else {
+					return "Vous n'avez pas les droits d'écriture sur cette information";
+				}
+			}
+		}
+		return "L'élément cherché n'existe pas";
 	}
 
 	@Override
 	public String get(String value, String commu) throws RemoteException {
-		Information i = (Information) this.mib.getHashmap().get(value);
-		boolean b = false;
 		Set<? extends Map.Entry<String, Information>> entries = this.mib.getHashmap().entrySet();
+		// on cherche dans la hashmap si l'élément est présent
 		for (Map.Entry<String, Information> entry : entries) {
-			if(entry.getValue().getNom().equalsIgnoreCase(value);
-
-		}
-		
-
-		if (commu.equalsIgnoreCase(i.getDroit()[0])) {
-			String[] tab = value.split("\\.");
-			switch (tab[tab.length]) {
-				case "1":
-
-					break;
-				case "2":
-
-					break;
-				case "3":
-
-					break;
-
-				default:
-					break;
+			if (entry.getValue().getNom().equalsIgnoreCase(value)) {
+				// si l'élément est présent on vérifie que l'utilisateur à choisi une communauté
+				// ayant les droits d'accès
+				if (entry.getValue().getDroit()[0].equals(commu)) {
+					return entry.getValue().getValeur();
+				} else {
+					return "Vous n'avez pas les droits d'accès à cette information";
+				}
 			}
 		}
-		return "ui";
+		return "L'élément cherché n'existe pas";
 	}
+	// if (commu.equalsIgnoreCase(i.getDroit()[0])) {
+	// String[] tab = value.split("\\.");
+	// switch (tab[tab.length]) {
+	// case "1":
+
+	// break;
+	// case "2":
+
+	// break;
+	// case "3":
+
+	// break;
+
+	// default:
+	// break;
+	// }
+	// }
+	// return "ui";
 
 	@Override
 	public String getNext(String key, String commu) {

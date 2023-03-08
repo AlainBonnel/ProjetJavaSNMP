@@ -54,18 +54,17 @@ public class Manager implements Runnable {
         }
     }
 
-    public String recuperationInfo(String chaine, Agent a, String value, String commu) {
+    public String recuperationInfo(String chaine, Agent a, String value, String modif, String commu) {
         String message = "";
         try {
             if (chaine.equalsIgnoreCase("get")) {
                 // Appel d'une methode sur l'objet distant
-                // message = a.getNom();
-                System.out.println("get choisi, à modifier");
+                message = a.get(value, commu);
             } else if (chaine.equalsIgnoreCase("set")) {
                 // Appel d'une methode sur l'objet distant
-                // message = a.getAdresse();
-                System.out.println("set choisi, à modifier");
+                message = a.set(value, modif, commu);
             } else if (chaine.equalsIgnoreCase("getnext")) {
+                // Appel d'une methode sur l'objet distant
                 message = a.getNext(value, commu);
             } else {
                 message = "Choix non valide";
@@ -104,7 +103,11 @@ public class Manager implements Runnable {
                         value = scanner.nextLine();
                         System.out.println("Veuillez saisir votre communauté :");
                         commu = scanner.nextLine();
-                        System.out.println(recuperationInfo(chaine, agent, value, commu));
+                        if (chaine.equalsIgnoreCase("set")) {
+                            System.out.println(recuperationInfo(chaine, agent, value, null, commu));
+                        } else {
+                            System.out.println(recuperationInfo(chaine, agent, value, null, commu));
+                        }
                         System.out.println("Changer d'agent ? O/N (taper FIN pour quitter): ");
                         chaine = scanner.nextLine();
                     } while (chaine.equalsIgnoreCase("N"));
