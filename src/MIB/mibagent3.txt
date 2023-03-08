@@ -1,6 +1,6 @@
 MIB PROJECT SNMP
 0.1,SysDecr,Description d'un agent
-0.2,SysName,Agent3
+0.2,SysName,Agent3,mdpR
 0.3,SysUptime,3000
 1.1.1,Manager1Name,Alain
 1.1.2,Manager1MDP,mdp02

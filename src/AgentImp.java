@@ -76,7 +76,7 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 	// return "ui";
 
 	@Override
-	public String getNext(String key, String commu) {
+	public String getNext(String key) throws RemoteException {
 		if (this.mib.getHashmap().containsKey(key)) {
 			// on incremente l'OID de 1, on doit le cast en int pour l'incrementer et le
 			// remettre en String
@@ -85,20 +85,13 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 			key = String.join(".", tab);
 			// on verifie alors qu'il y a un suivant
 			if (this.mib.getHashmap().containsKey(key)) {
-				// on recupere l'objet Information correspondant a la clef pour afficher toutes
-				// ses informations
-				// apres avoir verifier que l'utilisateur ait les droits
-				if (this.mib.lectureAutorise(key, commu)) {
-					return "Je renvoie toutes les informations ici";
-				} else {
-					return "Vous n'avez pas les droits d'acces pour cette OID";
-				}
-			} else {
-				return "Pas de prochain element";
+				// on renvoie l'OID suivant
+				return key;
 			}
 		} else {
-			return "Cette OID n'existe pas";
+			return "Pas de prochain element";
 		}
+		return "Cette OID n'existe pas";
 	}
 
 	@Override

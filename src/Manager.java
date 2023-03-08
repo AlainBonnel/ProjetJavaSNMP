@@ -65,7 +65,7 @@ public class Manager implements Runnable {
                 message = a.set(value, modif, commu);
             } else if (chaine.equalsIgnoreCase("getnext")) {
                 // Appel d'une methode sur l'objet distant
-                message = a.getNext(value, commu);
+                message = a.getNext(value);
             } else {
                 message = "Choix non valide";
             }
@@ -86,11 +86,11 @@ public class Manager implements Runnable {
             String commu = "";
             Agent agent = null;
             do {
-                System.out.println("Voulez vous affichez la liste des agents ? O/N");
-                chaine = scanner.nextLine();
-                if (chaine.equalsIgnoreCase("O")) {
-                    recuperationNomAgent("mdpR");
-                }
+                // System.out.println("Voulez vous affichez la liste des agents ? O/N");
+                // chaine = scanner.nextLine();
+                // if (chaine.equalsIgnoreCase("O")) {
+                // recuperationNomAgent("mdpR");
+                // }
                 System.out.println("Selectionner un agent (taper FIN pour quitter): ");
                 chaine = scanner.nextLine();
                 if (!chaine.equalsIgnoreCase("FIN")) {
