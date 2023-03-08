@@ -5,13 +5,10 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
 import MIB.Information;
-import javax.management.Notification;
-
 import MIB.MIB;
 
 public class AgentImp extends UnicastRemoteObject implements Agent, Serializable, Runnable {

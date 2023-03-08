@@ -69,8 +69,8 @@ public class Manager implements Runnable {
             } else {
                 message = "Choix non valide";
             }
-
         } catch (Exception e) {
+            e.printStackTrace();
             message = "Erreur : " + e.getMessage();
         }
         return message;
@@ -104,7 +104,10 @@ public class Manager implements Runnable {
                         System.out.println("Veuillez saisir votre communauté :");
                         commu = scanner.nextLine();
                         if (chaine.equalsIgnoreCase("set")) {
-                            System.out.println(recuperationInfo(chaine, agent, value, null, commu));
+                            System.out.println("Saisir la nouvelle valeur :");
+                            String modif = scanner.nextLine();
+                            System.out
+                                    .println(recuperationInfo(chaine, agent, value, modif, commu));
                         } else {
                             System.out.println(recuperationInfo(chaine, agent, value, null, commu));
                         }
@@ -114,12 +117,10 @@ public class Manager implements Runnable {
                 }
             } while (!chaine.equalsIgnoreCase("FIN"));
             scanner.close();
-        } catch (
-
-        Exception e) {
+        } catch (Exception e) {
+            System.out.println("ici run");
             System.out.println("Erreur : " + e.getMessage());
         }
-
     }
 
     public static void main(String args[]) throws RemoteException, MalformedURLException {
