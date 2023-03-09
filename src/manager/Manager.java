@@ -1,7 +1,12 @@
+package manager;
+
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.Scanner;
+
+import agent.Agent;
+import trap.TrapImp;
 
 public class Manager implements Runnable {
 
@@ -56,8 +61,16 @@ public class Manager implements Runnable {
 
     public String recuperationInfo(String chaine, Agent a, String value, String modif, String commu) {
         String message = "";
+        Scanner scanner = new Scanner(System.in);
         try {
-            if (chaine.equalsIgnoreCase("get")) {
+            System.out.println("Entrez la communauté : ");
+            commu = scanner.nextLine();
+            if (chaine.equalsIgnoreCase("ajouterTrap")) {
+                // Appel d'une methode sur l'objet distant
+                TrapImp trap = new TrapImp();
+                a.ajouterTrap(value, trap);
+                message = "Trap ajoutée";
+            } else if (chaine.equalsIgnoreCase("get")) {
                 // Appel d'une methode sur l'objet distant
                 message = a.get(value, commu);
             } else if (chaine.equalsIgnoreCase("set")) {
@@ -85,6 +98,7 @@ public class Manager implements Runnable {
             String value = "";
             String commu = "";
             Agent agent = null;
+            TrapImp trap = new TrapImp();
             do {
                 // System.out.println("Voulez vous affichez la liste des agents ? O/N");
                 // chaine = scanner.nextLine();

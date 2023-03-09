@@ -1,3 +1,5 @@
+package agent;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
@@ -10,6 +12,8 @@ import java.util.Set;
 
 import MIB.Information;
 import MIB.MIB;
+import exceptions.ElementInexistant;
+import trap.Trap;
 
 public class AgentImp extends UnicastRemoteObject implements Agent, Serializable, Runnable {
 
@@ -21,7 +25,7 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 	}
 
 	@Override
-	public String set(String value, String modif, String commu) throws RemoteException {
+	public synchronized String set(String value, String modif, String commu) throws RemoteException, ElementInexistant {
 		Set<? extends Map.Entry<String, Information>> entries = this.mib.getHashmap().entrySet();
 		// on cherche dans la hashmap si l'élément est présent
 		for (Map.Entry<String, Information> entry : entries) {
@@ -40,7 +44,7 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 	}
 
 	@Override
-	public String get(String value, String commu) throws RemoteException {
+	public synchronized String get(String value, String commu) throws RemoteException, ElementInexistant {
 		Set<? extends Map.Entry<String, Information>> entries = this.mib.getHashmap().entrySet();
 		// on cherche dans la hashmap si l'élément est présent
 		for (Map.Entry<String, Information> entry : entries) {
@@ -56,27 +60,10 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 		}
 		return "L'élément cherché n'existe pas";
 	}
-	// if (commu.equalsIgnoreCase(i.getDroit()[0])) {
-	// String[] tab = value.split("\\.");
-	// switch (tab[tab.length]) {
-	// case "1":
-
-	// break;
-	// case "2":
-
-	// break;
-	// case "3":
-
-	// break;
-
-	// default:
-	// break;
-	// }
-	// }
-	// return "ui";
 
 	@Override
-	public String getNext(String key) throws RemoteException {
+	public synchronized String getNext(String key) throws RemoteException, ElementInexistant {
+		// on verifie que l'OID existe
 		if (this.mib.getHashmap().containsKey(key)) {
 			// on incremente l'OID de 1, on doit le cast en int pour l'incrementer et le
 			// remettre en String
@@ -92,6 +79,12 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 			return "Pas de prochain element";
 		}
 		return "Cette OID n'existe pas";
+	}
+
+	@Override
+	public synchronized void ajouterTrap(String element, Trap trap) throws RemoteException, ElementInexistant {
+		Information i = (Information) this.mib.getHashmap().get(element);
+		i.setTrap(trap);
 	}
 
 	@Override

@@ -1,9 +1,14 @@
 package MIB;
 
+import java.rmi.RemoteException;
+
+import trap.Trap;
+
 public class Information {
-	private String nom;
-	private String valeur;
-	private String[] droit;
+	private String nom; // nom de l'information
+	private String valeur; // valeur de l'information
+	private String[] droit; // 0 = communauté de lecture, 1 = communauté d'écriture
+	private Trap trap; // trap associé à l'information
 
 	public Information(String n, String v, String commuR, String commuRW) {
 		nom = n;
@@ -25,8 +30,15 @@ public class Information {
 		return this.valeur;
 	}
 
-	public void setValeur(String valeur) {
+	public void setValeur(String valeur) throws RemoteException {
 		this.valeur = valeur;
+		// on envoie un trap si l'information a été modifiée
+		if (trap != null)
+			try {
+				trap.trap("L'information " + nom + " a été modifiée");
+			} catch (RemoteException e) {
+				trap = null;
+			}
 	}
 
 	public String[] getDroit() {
@@ -37,29 +49,15 @@ public class Information {
 		this.droit = droit;
 	}
 
-	// public String getNext(String i) { // retourne le parametre suivant i
-	// String r = "null";
-	// if (list.contains(i)) {
-	// for (int a = 0; a < list.size() - 1; a++) { // -1 car le dernier element
-	// d'une chaine ne peut avoir de
-	// // suivant
-	// if (list.get(a) == i) {
-	// r = list.get(a + 1).toString();
-	// }
-	// }
-	// }
-	// return r;
-	// }
+	public Trap getTrap() {
+		return this.trap;
+	}
+
+	public void setTrap(Trap trap) {
+		this.trap = trap;
+	}
 
 	public static void main(String[] args) { // tests de fonctionalite
 		System.out.println("Hello world !");
-		String key = "test comme ça . oui bonjour . dzaezae . 2";
-		System.out.println(key);
-		String[] tab = key.split("\\.");
-		System.out.println(tab.length);
-		tab[tab.length - 1] = Integer.toString((Integer.parseInt(tab[tab.length - 1]) + 1));
-		key = String.join(".", tab);
-		System.out.println(key);
 	}
-
 }

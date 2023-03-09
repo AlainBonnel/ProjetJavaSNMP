@@ -85,7 +85,5 @@ public class MIB {
 	public static void main(String[] args) throws IOException { // tests de fonctionalite
 		MIB m = new MIB(
 				"/Users/alainbonnel/Documents/UPSSITECH/S8/Java/ProjetSNMP/ProjetJavaSNMP/src/MIB/mibagent1.txt");
-
-		System.out.println();
 	}
 }
