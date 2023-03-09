@@ -25,7 +25,8 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 	}
 
 	@Override
-	public synchronized String set(String value, String modif, String commu) throws RemoteException, ElementInexistant {
+	public synchronized String set(String value, String modif, String commu, String manager)
+			throws RemoteException, ElementInexistant {
 		Set<? extends Map.Entry<String, Information>> entries = this.mib.getHashmap().entrySet();
 		// on cherche dans la hashmap si l'élément est présent
 		for (Map.Entry<String, Information> entry : entries) {
@@ -33,7 +34,7 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 				// si l'élément est présent on vérifie que l'utilisateur à choisi une communauté
 				// ayant les droits d'écriture
 				if (entry.getValue().getDroit()[1].equals(commu)) {
-					entry.getValue().setValeur(modif);
+					entry.getValue().setValeur(modif, manager);
 					return "Modification effectuée";
 				} else {
 					return "Vous n'avez pas les droits d'écriture sur cette information";
@@ -44,7 +45,8 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 	}
 
 	@Override
-	public synchronized String get(String value, String commu) throws RemoteException, ElementInexistant {
+	public synchronized String get(String value, String commu, String manager)
+			throws RemoteException, ElementInexistant {
 		Set<? extends Map.Entry<String, Information>> entries = this.mib.getHashmap().entrySet();
 		// on cherche dans la hashmap si l'élément est présent
 		for (Map.Entry<String, Information> entry : entries) {
@@ -82,13 +84,16 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 	}
 
 	@Override
-	public synchronized void ajouterTrap(String element, Trap t) throws RemoteException, ElementInexistant {
+	public synchronized void ajouterTrap(String element, Trap t, String manager)
+			throws RemoteException, ElementInexistant {
 		Information i = (Information) this.mib.getHashmap().get(element);
-		if (i.getTrap() != null) {
+		if (i.getTrap().containsKey(manager)) {
 			System.out.println("Le trap est deja actif");
 		} else {
-			i.setTrap(t);
+			i.setTrap(manager, t);
 			System.out.println("Le trap est activé");
+			System.out.println("Voici la liste des abonnés :");
+			i.afficherAbo();
 		}
 	}
 

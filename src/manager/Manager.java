@@ -51,7 +51,7 @@ public class Manager implements Runnable {
             String[] names = Naming.list("rmi://localhost/");
             for (String name : names) {
                 Agent snmpService = (Agent) Naming.lookup(name);
-                System.out.println("Found SNMP agent: " + snmpService.get("SysName", commu));
+                System.out.println("Found SNMP agent: " + snmpService.get("SysName", commu, this.nom));
             }
 
         } catch (Exception e) {
@@ -64,16 +64,16 @@ public class Manager implements Runnable {
         try {
             if (chaine.equalsIgnoreCase("get")) {
                 // Appel d'une methode sur l'objet distant
-                message = a.get(value, commu);
+                message = a.get(value, commu, this.nom);
             } else if (chaine.equalsIgnoreCase("set")) {
                 // Appel d'une methode sur l'objet distant
-                message = a.set(value, modif, commu);
+                message = a.set(value, modif, commu, this.nom);
             } else if (chaine.equalsIgnoreCase("getnext")) {
                 // Appel d'une methode sur l'objet distant
                 message = a.getNext(value);
             } else if (chaine.equalsIgnoreCase("ajouterTrap")) {
                 // Appel d'une methode sur l'objet distant
-                a.ajouterTrap(value, new TrapImp());
+                a.ajouterTrap(value, new TrapImp(), this.nom);
                 message = "Trap ajoutée";
             } else {
                 message = "Choix non valide";
@@ -134,7 +134,7 @@ public class Manager implements Runnable {
     }
 
     public static void main(String args[]) throws RemoteException, MalformedURLException {
-        Manager m1 = new Manager("Manager1", "192.168.12.12", "test1");
+        Manager m1 = new Manager("Manager2", "192.168.12.12", "test1");
 
         Thread t = new Thread(m1);
 

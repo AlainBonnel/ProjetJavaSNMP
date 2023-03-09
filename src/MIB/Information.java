@@ -1,23 +1,25 @@
 package MIB;
 
 import java.rmi.RemoteException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import trap.Trap;
-import trap.TrapImp;
 
 public class Information {
 	private String nom; // nom de l'information
 	private String valeur; // valeur de l'information
 	private String[] droit; // 0 = communauté de lecture, 1 = communauté d'écriture
-	private Trap trap; // trap associé à l'information
+	private HashMap<String, Trap> trap; // liste des des managers abonnés à l'information
 
 	public Information(String n, String v, String commuR, String commuRW) throws RemoteException {
+		trap = new HashMap<String, Trap>();
 		nom = n;
 		valeur = v;
 		droit = new String[2];
 		droit[0] = commuR;
 		droit[1] = commuRW;
-		trap = null;
 	}
 
 	public String getNom() {
@@ -32,15 +34,20 @@ public class Information {
 		return this.valeur;
 	}
 
-	public void setValeur(String valeur) throws RemoteException {
+	public void setValeur(String valeur, String manager) throws RemoteException {
 		this.valeur = valeur;
 		// on envoie un trap si l'information a été modifiée
-		if (trap != null)
+		if (!trap.isEmpty()) {
 			try {
-				trap.trap("L'information " + nom + " a été modifiée");
+				Set<? extends Map.Entry<String, Trap>> entries = trap.entrySet();
+				// on affiche la liste des managers abonnés à l'information
+				for (Map.Entry<String, Trap> entry : entries) {
+					trap.get(entry.getKey()).trap("L'information " + nom + " a été modifiée" + " par " + manager);
+				}
 			} catch (RemoteException e) {
 				trap = null;
 			}
+		}
 	}
 
 	public String[] getDroit() {
@@ -51,12 +58,20 @@ public class Information {
 		this.droit = droit;
 	}
 
-	public Trap getTrap() {
+	public HashMap<String, Trap> getTrap() {
 		return this.trap;
 	}
 
-	public void setTrap(Trap t) {
-		this.trap = t;
+	public void afficherAbo() {
+		Set<? extends Map.Entry<String, Trap>> entries = trap.entrySet();
+		// on affiche la liste des managers abonnés à l'information
+		for (Map.Entry<String, Trap> entry : entries) {
+			System.out.println(entry.getKey());
+		}
+	}
+
+	public void setTrap(String manager, Trap t) {
+		this.trap.put(manager, t);
 	}
 
 	public static void main(String[] args) { // tests de fonctionalite
