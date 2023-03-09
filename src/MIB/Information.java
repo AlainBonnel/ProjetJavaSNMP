@@ -3,6 +3,7 @@ package MIB;
 import java.rmi.RemoteException;
 
 import trap.Trap;
+import trap.TrapImp;
 
 public class Information {
 	private String nom; // nom de l'information
@@ -10,12 +11,13 @@ public class Information {
 	private String[] droit; // 0 = communauté de lecture, 1 = communauté d'écriture
 	private Trap trap; // trap associé à l'information
 
-	public Information(String n, String v, String commuR, String commuRW) {
+	public Information(String n, String v, String commuR, String commuRW) throws RemoteException {
 		nom = n;
 		valeur = v;
 		droit = new String[2];
 		droit[0] = commuR;
 		droit[1] = commuRW;
+		trap = null;
 	}
 
 	public String getNom() {
@@ -53,11 +55,12 @@ public class Information {
 		return this.trap;
 	}
 
-	public void setTrap(Trap trap) {
-		this.trap = trap;
+	public void setTrap(Trap t) {
+		this.trap = t;
 	}
 
 	public static void main(String[] args) { // tests de fonctionalite
 		System.out.println("Hello world !");
 	}
+
 }

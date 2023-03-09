@@ -32,10 +32,10 @@ public class MIB {
 						taille = TAILLEMAX - tab.length;
 						switch (taille) {
 							case 1:
-								map.put(tab[0], new Information(tab[1], tab[2], tab[3], null));
+								map.put(tab[0], new Information(tab[1], tab[2], tab[3], ""));
 								break;
 							case 2:
-								map.put(tab[0], new Information(tab[1], tab[2], null, null));
+								map.put(tab[0], new Information(tab[1], tab[2], "", ""));
 								break;
 							default:
 								break;

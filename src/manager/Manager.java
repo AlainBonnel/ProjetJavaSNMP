@@ -12,14 +12,14 @@ public class Manager implements Runnable {
 
     private String nom;
 
-    private String mdp;
+    private String commu;
 
     private String adresse;
 
     public Manager(String n, String a, String m) throws RemoteException {
         this.nom = n;
         this.adresse = a;
-        this.mdp = m;
+        this.commu = m;
     }
 
     public String getNom() {
@@ -38,12 +38,12 @@ public class Manager implements Runnable {
         this.adresse = adresse;
     }
 
-    public String getMdp() {
-        return mdp;
+    public String getCommu() {
+        return commu;
     }
 
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
+    public void setCommu(String mdp) {
+        this.commu = mdp;
     }
 
     public void recuperationNomAgent(String commu) {
@@ -61,16 +61,8 @@ public class Manager implements Runnable {
 
     public String recuperationInfo(String chaine, Agent a, String value, String modif, String commu) {
         String message = "";
-        Scanner scanner = new Scanner(System.in);
         try {
-            System.out.println("Entrez la communauté : ");
-            commu = scanner.nextLine();
-            if (chaine.equalsIgnoreCase("ajouterTrap")) {
-                // Appel d'une methode sur l'objet distant
-                TrapImp trap = new TrapImp();
-                a.ajouterTrap(value, trap);
-                message = "Trap ajoutée";
-            } else if (chaine.equalsIgnoreCase("get")) {
+            if (chaine.equalsIgnoreCase("get")) {
                 // Appel d'une methode sur l'objet distant
                 message = a.get(value, commu);
             } else if (chaine.equalsIgnoreCase("set")) {
@@ -79,11 +71,16 @@ public class Manager implements Runnable {
             } else if (chaine.equalsIgnoreCase("getnext")) {
                 // Appel d'une methode sur l'objet distant
                 message = a.getNext(value);
+            } else if (chaine.equalsIgnoreCase("ajouterTrap")) {
+                // Appel d'une methode sur l'objet distant
+                a.ajouterTrap(value, new TrapImp());
+                message = "Trap ajoutée";
             } else {
                 message = "Choix non valide";
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("ici recuperationInfo");
             message = "Erreur : " + e.getMessage();
         }
         return message;
@@ -98,7 +95,6 @@ public class Manager implements Runnable {
             String value = "";
             String commu = "";
             Agent agent = null;
-            TrapImp trap = new TrapImp();
             do {
                 // System.out.println("Voulez vous affichez la liste des agents ? O/N");
                 // chaine = scanner.nextLine();
@@ -111,7 +107,7 @@ public class Manager implements Runnable {
                     agent = (Agent) Naming.lookup(chaine);
                     do {
                         System.out
-                                .println("Quelle action voulez vous faire : get , set , getnext");
+                                .println("Quelle action voulez vous faire : get , set , getnext, ajouterTrap ?");
                         chaine = scanner.nextLine();
                         System.out.println("Pour quel élément ? :");
                         value = scanner.nextLine();
@@ -138,7 +134,7 @@ public class Manager implements Runnable {
     }
 
     public static void main(String args[]) throws RemoteException, MalformedURLException {
-        Manager m1 = new Manager("Manager1", "192.168.12.11", "test1");
+        Manager m1 = new Manager("Manager1", "192.168.12.12", "test1");
 
         Thread t = new Thread(m1);
 

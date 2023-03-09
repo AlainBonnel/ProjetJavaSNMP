@@ -1,7 +1,8 @@
 package trap;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
- 
+
 public class TrapImp extends UnicastRemoteObject implements Trap {
 
     public TrapImp() throws RemoteException {

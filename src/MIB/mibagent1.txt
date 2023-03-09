@@ -1,6 +1,6 @@
 MIB PROJECT SNMP
 0.1,SysDecr,Description d'un agent,mdpR,mdpRW
-0.2,SysName,Agent1,mdpR,mdpRW
+0.2,SysName,Agent1,mdpR,mdpRW,""
 0.3,SysUptime,100000,mdpR
 1.1.3,Manager1Addr,172.168.0.1,mdpR
 1.2.1,Manager2Addr,172.168.0.0.2,mdpR

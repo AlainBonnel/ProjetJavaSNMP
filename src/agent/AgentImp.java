@@ -82,9 +82,14 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 	}
 
 	@Override
-	public synchronized void ajouterTrap(String element, Trap trap) throws RemoteException, ElementInexistant {
+	public synchronized void ajouterTrap(String element, Trap t) throws RemoteException, ElementInexistant {
 		Information i = (Information) this.mib.getHashmap().get(element);
-		i.setTrap(trap);
+		if (i.getTrap() != null) {
+			System.out.println("Le trap est deja actif");
+		} else {
+			i.setTrap(t);
+			System.out.println("Le trap est activé");
+		}
 	}
 
 	@Override

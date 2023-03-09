@@ -13,6 +13,6 @@ public interface Agent extends java.rmi.Remote {
 
 	public String getNext(String key) throws RemoteException, ElementInexistant;
 
-	public void ajouterTrap(String agent, Trap trap) throws RemoteException, TrapPresent, ElementInexistant;
+	public void ajouterTrap(String agent, Trap t) throws RemoteException, TrapPresent, ElementInexistant;
 
 }
