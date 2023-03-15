@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>6</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>294</x>
+      <y>414</y>
+      <w>276</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>AgentImp
+Package::agent
+--
+private mib : MIB;
+--
+AgentImp(MIB mib)
+String set(String value,String modif, String commu, String manager)
+String get(String value,String commu,String manager)
+String getNext(String key)
+void ajouterTrap(String agent,Trap T, String manager)
+void run()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>72</x>
+      <y>750</y>
+      <w>276</w>
+      <h>102</h>
+    </coordinates>
+    <panel_attributes>Agent
+Package::agent
+&lt;&lt;interface&gt;&gt;
+--
+String set(String value,String modif, String commu, String manager)
+String get(String value,String commu,String manager)
+String getNext(String key)
+void ajouterTrap(String agent,Trap T, String manager)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>390</x>
+      <y>810</y>
+      <w>84</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>Serializable
+&lt;&lt;Interface&gt;&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>498</x>
+      <y>810</y>
+      <w>84</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>Runable
+&lt;&lt;Interface&gt;&gt;
+--
+void run()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>246</x>
+      <y>504</y>
+      <w>198</w>
+      <h>258</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>310.0;10.0;10.0;410.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>426</x>
+      <y>504</y>
+      <w>72</w>
+      <h>318</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;510.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>426</x>
+      <y>504</y>
+      <w>126</w>
+      <h>318</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;190.0;510.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>648</x>
+      <y>756</y>
+      <w>360</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>Manager
+Package::manager
+&lt;&lt;interface&gt;&gt;
+--
+String controleDistant (String commande,Agent a, String value, String modif,String commu))
+String getNom()
+Int getHierarchie()
+String getCommu()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>612</x>
+      <y>408</y>
+      <w>390</w>
+      <h>258</h>
+    </coordinates>
+    <panel_attributes>ManagerImp
+Package::manager
+--
+private nom : String 
+private commu : String 
+private adresse : String;
+private Hierarchie int;
+--
+ManagerImp(String n,String a,String c,int h)
+String controleDistant (String commande,Agent a, String value, String modif,String commu))
+String getNom()
+Int getHierarchie()
+
+void recuperationNomAgent(String commu)
+String recuperationInfo(String commande,Agent a,String value,String modif,String commu)
+String gestionTraitementDemandeAgent(Scanner scanner,String chaien ,String value,Agent Agent)
+String gestionTraitementControleDistant(String chaine,Scanner scanner,Agent agent,String valu,Manager m)
+
+String set(String value,String modif, String commu, String manager)
+String get(String value,String commu,String manager)
+String getNext(String key)
+void ajouterTrap(String agent,Trap T, String manager)
+
+String getCommu()
+void setNom(String nom)
+String getAdresse()
+void setAdresse(String adresse)
+void setCommu(String c)
+void setHierarchie(int h)
+void run()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>534</x>
+      <y>660</y>
+      <w>270</w>
+      <h>162</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>430.0;10.0;10.0;250.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>786</x>
+      <y>660</y>
+      <w>72</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;20.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>132</x>
+      <y>264</y>
+      <w>84</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>Remote
+&lt;&lt;Interface&gt;&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>162</x>
+      <y>306</y>
+      <w>54</w>
+      <h>456</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;740.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>342</x>
+      <y>762</y>
+      <w>318</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>510.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>510</x>
+      <y>108</y>
+      <w>270</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>MIB
+Package::MIB
+--
+private map : HashMap&lt;String,Information&gt;
+private chemin : String
+private taillemax ; int
+--
+MIB(String chemin)
+void afficherAbo()
+
+Hashmap getHashmap()
+void setHashmap(HashMap hashmap)
+Information get(String key)
+boolean lectureAutorise(String key,String commu)
+boolean ecritureAutorise(String key,String commu)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>774</x>
+      <y>150</y>
+      <w>108</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>870</x>
+      <y>108</y>
+      <w>270</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Information
+Package::MIB
+--
+private nom : String
+private valeur : String
+private droit String[]
+private trap HashMap&lt;String,Trap&gt; 
+--
+Information(String n,String v,String commuR,String commuRW))
+void afficherAbo()
+
+String getNom()
+void setNom(String nom)
+String getValeur()
+void setValeur(String valeur,String manager)
+String[] getDroit()
+void setDroit(String[] droit)
+HashMap&lt;String,Trap&gt; getTrap()
+void setTrap(String manager,Trap t)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>426</x>
+      <y>282</y>
+      <w>246</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>390.0;10.0;390.0;120.0;10.0;120.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>126</x>
+      <y>126</y>
+      <w>114</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>Trap
+&lt;&lt;Interface&gt;&gt;
+--
+void trap(String message)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>168</x>
+      <y>168</y>
+      <w>54</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>432</x>
+      <y>150</y>
+      <w>90</w>
+      <h>18</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>324</x>
+      <y>126</y>
+      <w>114</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>TrapImp
+--
+TrapImp()
+void trap(String message)
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>234</x>
+      <y>144</y>
+      <w>102</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;implements&gt;&gt;</panel_attributes>
+    <additional_attributes>150.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+</diagram>
