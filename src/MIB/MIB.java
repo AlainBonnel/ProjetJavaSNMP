@@ -4,7 +4,8 @@ import java.io.*;
 import java.util.HashMap;
 
 public class MIB {
-	private HashMap map;
+	private HashMap map; // hashmap contenant les informations avec comme clé l'OID et valeur un objet
+							// Information
 	private String Chemin;
 	private static final int TAILLEMAX = 5;
 

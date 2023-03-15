@@ -23,9 +23,11 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 		this.mib = mib;
 	}
 
+	// méthode set pour modifier une valeur dans la MIB de l'agent
 	@Override
 	public synchronized String set(String value, String modif, String commu, String manager)
 			throws RemoteException, ElementInexistant {
+		// on récupère la liste des entrées de la hashmap
 		Set<? extends Map.Entry<String, Information>> entries = this.mib.getHashmap().entrySet();
 		// on cherche dans la hashmap si l'élément est présent
 		for (Map.Entry<String, Information> entry : entries) {
@@ -43,9 +45,11 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 		return "L'élément cherché n'existe pas";
 	}
 
+	// méthode get pour récupérer une valeur dans la MIB de l'agent
 	@Override
 	public synchronized String get(String value, String commu, String manager)
 			throws RemoteException, ElementInexistant {
+		// on récupère la liste des entrées de la hashmap
 		Set<? extends Map.Entry<String, Information>> entries = this.mib.getHashmap().entrySet();
 		// on cherche dans la hashmap si l'élément est présent
 		for (Map.Entry<String, Information> entry : entries) {
@@ -62,6 +66,8 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 		return "L'élément cherché n'existe pas";
 	}
 
+	// méthode getNext pour récupérer l'OID de l'élément suivant dans la MIB de
+	// l'agent
 	@Override
 	public synchronized String getNext(String key) throws RemoteException, ElementInexistant {
 		// on verifie que l'OID existe
@@ -82,13 +88,17 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 		return "Cette OID n'existe pas";
 	}
 
+	// méthode qui permet d'ajouter un trap à un élément de la MIB de l'agent
 	@Override
 	public synchronized void ajouterTrap(String element, Trap t, String manager)
 			throws RemoteException, ElementInexistant {
+		// on recupère l'élément de la MIB
 		Information i = (Information) this.mib.getHashmap().get(element);
+		// on regarde si le manager est déjà abonné à l'élément
 		if (i.getTrap().containsKey(manager)) {
 			System.out.println("Le trap est deja actif");
 		} else {
+			// on ajoute l'abonnement du manager à l'élément
 			i.setTrap(manager, t);
 			System.out.println("Le trap est activé");
 			System.out.println("Voici la liste des abonnés :");
