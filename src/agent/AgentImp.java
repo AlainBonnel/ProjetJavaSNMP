@@ -53,7 +53,7 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 			if (entry.getValue().getNom().equalsIgnoreCase(value)) {
 				// si l'élément est présent on vérifie que l'utilisateur à choisi une communauté
 				// ayant les droits d'accès
-				if (entry.getValue().getDroit()[0].equals(commu)) {
+				if (entry.getValue().getDroit()[0].equals(commu) || entry.getValue().getDroit()[1].equals(commu)) {
 					return entry.getValue().getValeur();
 				} else {
 					return "Vous n'avez pas les droits d'accès à cette information";
@@ -121,21 +121,21 @@ public class AgentImp extends UnicastRemoteObject implements Agent, Serializable
 		System.out.println("A declare aupres du serveur de noms");
 	}
 
-	public static void main(String args[]) throws IOException {
-		AgentImp a1 = new AgentImp(new MIB(
-				"/Users/alainbonnel/Documents/UPSSITECH/S8/Java/ProjetSNMP/ProjetJavaSNMP/src/MIB/mibagent1.txt"));
-		AgentImp a2 = new AgentImp(new MIB(
-				"/Users/alainbonnel/Documents/UPSSITECH/S8/Java/ProjetSNMP/ProjetJavaSNMP/src/MIB/mibagent2.txt"));
-		AgentImp a3 = new AgentImp(new MIB(
-				"/Users/alainbonnel/Documents/UPSSITECH/S8/Java/ProjetSNMP/ProjetJavaSNMP/src/MIB/mibagent3.txt"));
+	// public static void main(String args[]) throws IOException {
+	// AgentImp a1 = new AgentImp(new MIB(
+	// "/Users/alainbonnel/Documents/UPSSITECH/S8/Java/ProjetSNMP/ProjetJavaSNMP/src/MIB/mibagent1.txt"));
+	// AgentImp a2 = new AgentImp(new MIB(
+	// "/Users/alainbonnel/Documents/UPSSITECH/S8/Java/ProjetSNMP/ProjetJavaSNMP/src/MIB/mibagent2.txt"));
+	// AgentImp a3 = new AgentImp(new MIB(
+	// "/Users/alainbonnel/Documents/UPSSITECH/S8/Java/ProjetSNMP/ProjetJavaSNMP/src/MIB/mibagent3.txt"));
 
-		Thread t1 = new Thread(a1);
-		Thread t2 = new Thread(a2);
-		Thread t3 = new Thread(a3);
+	// Thread t1 = new Thread(a1);
+	// Thread t2 = new Thread(a2);
+	// Thread t3 = new Thread(a3);
 
-		t1.start();
-		t2.start();
-		t3.start();
-	}
+	// t1.start();
+	// t2.start();
+	// t3.start();
+	// }
 
 }
