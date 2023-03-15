@@ -144,7 +144,7 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
         this.ajouterTrap(agent, t, this.nom);
     }
 
-    public String gestionTraitementDemandeAgent(Manager m, boolean accesDistant) {
+    public String gestionDemande(Manager m, boolean accesDistant) {
         Scanner scanner = new Scanner(System.in);
         String chaine = "";
         String value = "";
@@ -200,7 +200,7 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
                 System.out.println("Voulez vous sélectionner un agent ou un manager ? ");
                 chaine = scanner.nextLine();
                 if (chaine.equalsIgnoreCase("agent")) {
-                    chaine = gestionTraitementDemandeAgent(null, false);
+                    chaine = gestionDemande(null, false);
                 } else if (chaine.equalsIgnoreCase("manager")) {
                     System.out.println("Selectionner un manager (taper FIN pour quitter): ");
                     chaine = scanner.nextLine();
@@ -209,7 +209,7 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
                         if (this.hierarchie < manager.getHierarchie()) {
                             System.out.println("Vous n'avez pas les droits pour effectuer cette action");
                         } else {
-                            chaine = gestionTraitementDemandeAgent(manager, true);
+                            chaine = gestionDemande(manager, true);
                         }
                     }
                 }
