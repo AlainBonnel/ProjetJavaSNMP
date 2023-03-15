@@ -1,6 +1,4 @@
 import java.io.IOException;
-import java.rmi.RemoteException;
-
 import MIB.MIB;
 import agent.AgentImp;
 import manager.ManagerImp;

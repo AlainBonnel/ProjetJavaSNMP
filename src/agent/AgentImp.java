@@ -1,6 +1,5 @@
 package agent;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;

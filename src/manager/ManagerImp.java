@@ -156,22 +156,29 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
             throws RemoteException {
         String message = "";
         try {
-            if (commande.equalsIgnoreCase("get")) {
-                // Appel d'une methode sur l'objet distant
-                message = a.get(value, commu, this.nom);
-            } else if (commande.equalsIgnoreCase("set")) {
-                // Appel d'une methode sur l'objet distant
-                message = a.set(value, modif, commu, this.nom);
-            } else if (commande.equalsIgnoreCase("getnext")) {
-                // Appel d'une methode sur l'objet distant
-                message = a.getNext(value);
-            } else if (commande.equalsIgnoreCase("ajouterTrap")) {
-                // Appel d'une methode sur l'objet distant
-                a.ajouterTrap(value, new TrapImp(), this.nom);
-                message = "Trap ajoutée";
-            } else {
-                message = "Choix non valide";
+            switch (commande.toLowerCase()) {
+                case "get":
+                    // Appel d'une methode sur l'objet distant
+                    message = a.get(value, commu, this.nom);
+                    break;
+                case "set":
+                    // Appel d'une methode sur l'objet distant
+                    message = a.set(value, modif, commu, this.nom);
+                    break;
+                case "getnext":
+                    // Appel d'une methode sur l'objet distant
+                    message = a.getNext(value);
+                    break;
+                case "ajoutertrap":
+                    a.ajouterTrap(value, new TrapImp(), this.nom);
+                    message = "Trap ajoutée";
+                    break;
+
+                default:
+                    message = "Choix non valide";
+                    break;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             message = "Erreur : " + e.getMessage();
