@@ -6,7 +6,7 @@ import agent.Agent;
 
 public interface Manager extends Agent {
 
-    public String controleDistant(String commande, Agent a, String value, String modif, String commu)
+    public String recuperationInfo(String commande, Agent a, String value, String modif, String commu)
             throws RemoteException;
 
     public String getNom() throws RemoteException;

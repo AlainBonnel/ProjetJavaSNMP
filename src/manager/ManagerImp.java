@@ -62,20 +62,6 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
         this.hierarchie = h;
     }
 
-    // public void recuperationNomAgent(String commu) {
-    // try {
-    // String[] names = Naming.list("rmi://localhost/");
-    // for (String name : names) {
-    // Agent snmpService = (Agent) Naming.lookup(name);
-    // System.out.println("Found SNMP agent: " + snmpService.get("SysName", commu,
-    // this.nom));
-    // }
-
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // }
-
     public void recuperationNomAgent(String commu) {
         try {
             String[] names = Naming.list("rmi://localhost/");
@@ -97,22 +83,29 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
     public String recuperationInfo(String commande, Agent a, String value, String modif, String commu) {
         String message = "";
         try {
-            if (commande.equalsIgnoreCase("get")) {
-                // Appel d'une methode sur l'objet distant
-                message = a.get(value, commu, this.nom);
-            } else if (commande.equalsIgnoreCase("set")) {
-                // Appel d'une methode sur l'objet distant
-                message = a.set(value, modif, commu, this.nom);
-            } else if (commande.equalsIgnoreCase("getnext")) {
-                // Appel d'une methode sur l'objet distant
-                message = a.getNext(value);
-            } else if (commande.equalsIgnoreCase("ajouterTrap")) {
-                // Appel d'une methode sur l'objet distant
-                a.ajouterTrap(value, new TrapImp(), this.nom);
-                message = "Trap ajoutée";
-            } else {
-                message = "Choix non valide";
+            switch (commande.toLowerCase()) {
+                case "get":
+                    // Appel d'une methode sur l'objet distant
+                    message = a.get(value, commu, this.nom);
+                    break;
+                case "set":
+                    // Appel d'une methode sur l'objet distant
+                    message = a.set(value, modif, commu, this.nom);
+                    break;
+                case "getnext":
+                    // Appel d'une methode sur l'objet distant
+                    message = a.getNext(value);
+                    break;
+                case "ajoutertrap":
+                    a.ajouterTrap(value, new TrapImp(), this.nom);
+                    message = "Trap ajoutée";
+                    break;
+
+                default:
+                    message = "Choix non valide";
+                    break;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             message = "Erreur : " + e.getMessage();
@@ -151,42 +144,11 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
         this.ajouterTrap(agent, t, this.nom);
     }
 
-    @Override
-    public String controleDistant(String commande, Agent a, String value, String modif, String commu)
-            throws RemoteException {
-        String message = "";
-        try {
-            switch (commande.toLowerCase()) {
-                case "get":
-                    // Appel d'une methode sur l'objet distant
-                    message = a.get(value, commu, this.nom);
-                    break;
-                case "set":
-                    // Appel d'une methode sur l'objet distant
-                    message = a.set(value, modif, commu, this.nom);
-                    break;
-                case "getnext":
-                    // Appel d'une methode sur l'objet distant
-                    message = a.getNext(value);
-                    break;
-                case "ajoutertrap":
-                    a.ajouterTrap(value, new TrapImp(), this.nom);
-                    message = "Trap ajoutée";
-                    break;
-
-                default:
-                    message = "Choix non valide";
-                    break;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            message = "Erreur : " + e.getMessage();
-        }
-        return message;
-    }
-
-    public String gestionTraitementDemandeAgent(Scanner scanner, String chaine, String value, Agent agent) {
+    public String gestionTraitementDemandeAgent(Manager m, boolean accesDistant) {
+        Scanner scanner = new Scanner(System.in);
+        String chaine = "";
+        String value = "";
+        Agent agent = null;
         try {
             System.out.println("Selectionner un agent (taper FIN pour quitter): ");
             chaine = scanner.nextLine();
@@ -201,10 +163,19 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
                     if (chaine.equalsIgnoreCase("set")) {
                         System.out.println("Saisir la nouvelle valeur :");
                         String modif = scanner.nextLine();
-                        System.out
-                                .println(recuperationInfo(chaine, agent, value, modif, this.commu));
+                        if (accesDistant) {
+                            System.out
+                                    .println(m.recuperationInfo(chaine, agent, value, modif, m.getCommu()));
+                        } else {
+                            System.out
+                                    .println(recuperationInfo(chaine, agent, value, modif, this.commu));
+                        }
                     } else {
-                        System.out.println(recuperationInfo(chaine, agent, value, null, this.commu));
+                        if (accesDistant) {
+                            System.out.println(m.recuperationInfo(chaine, agent, value, null, m.getCommu()));
+                        } else {
+                            System.out.println(recuperationInfo(chaine, agent, value, null, this.commu));
+                        }
                     }
                     System.out.println("Changer d'agent ? O/N (taper FIN pour quitter): ");
                     chaine = scanner.nextLine();
@@ -213,37 +184,7 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
         } catch (Exception e) {
             // TODO: handle exception
         }
-        return chaine;
-    }
-
-    public String gestionTraitementControleDistant(String chaine, Scanner scanner, Agent agent, String value,
-            Manager m) {
-        try {
-            System.out.println("Selectionner un agent (taper FIN pour quitter): ");
-            chaine = scanner.nextLine();
-            if (!chaine.equalsIgnoreCase("FIN")) {
-                agent = (Agent) Naming.lookup(chaine);
-                do {
-                    System.out
-                            .println("Quelle action voulez vous faire : get , set , getnext, ajouterTrap ?");
-                    chaine = scanner.nextLine();
-                    System.out.println("Pour quel élément ? :");
-                    value = scanner.nextLine();
-                    if (chaine.equalsIgnoreCase("set")) {
-                        System.out.println("Saisir la nouvelle valeur :");
-                        String modif = scanner.nextLine();
-                        System.out
-                                .println(m.controleDistant(chaine, agent, value, modif, m.getCommu()));
-                    } else {
-                        System.out.println(m.controleDistant(chaine, agent, value, null, m.getCommu()));
-                    }
-                    System.out.println("Changer d'agent ? O/N (taper FIN pour quitter): ");
-                    chaine = scanner.nextLine();
-                } while (chaine.equalsIgnoreCase("N"));
-            }
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+        scanner.close();
         return chaine;
     }
 
@@ -254,19 +195,12 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
             Scanner scanner = new Scanner(System.in);
             recuperationNomAgent("mdpR");
             String chaine = "";
-            String value = "";
-            Agent agent = null;
             Manager manager = null;
             do {
-                // System.out.println("Voulez vous affichez la liste des agents ? O/N");
-                // chaine = scanner.nextLine();
-                // if (chaine.equalsIgnoreCase("O")) {
-                // recuperationNomAgent("mdpR");
-                // }
                 System.out.println("Voulez vous sélectionner un agent ou un manager ? ");
                 chaine = scanner.nextLine();
                 if (chaine.equalsIgnoreCase("agent")) {
-                    chaine = gestionTraitementDemandeAgent(scanner, chaine, value, agent);
+                    chaine = gestionTraitementDemandeAgent(null, false);
                 } else if (chaine.equalsIgnoreCase("manager")) {
                     System.out.println("Selectionner un manager (taper FIN pour quitter): ");
                     chaine = scanner.nextLine();
@@ -275,7 +209,7 @@ public class ManagerImp extends UnicastRemoteObject implements Manager, Runnable
                         if (this.hierarchie < manager.getHierarchie()) {
                             System.out.println("Vous n'avez pas les droits pour effectuer cette action");
                         } else {
-                            chaine = gestionTraitementControleDistant(chaine, scanner, agent, value, manager);
+                            chaine = gestionTraitementDemandeAgent(manager, true);
                         }
                     }
                 }
